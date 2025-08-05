@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import TaskInput from '../components/counter/TaskInput'
-import TaskList from '../components/counter/TaskList'
-import TaskCounter from '../components/counter/TaskCounter'
+import TaskInput from '../../components/counter/TaskInput'
+import TaskList from '../../components/counter/TaskList'
+import TaskCounter from '../../components/counter/TaskCounter'
 import { useNavigate } from 'react-router'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';

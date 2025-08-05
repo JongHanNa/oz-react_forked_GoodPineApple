@@ -1,4 +1,5 @@
 import './App.css'
+
 import { Routes, Route, Link, useLocation } from 'react-router'
 import Posts from './posts/Posts'
 import Post from './posts/Post'

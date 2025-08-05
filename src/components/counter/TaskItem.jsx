@@ -1,21 +1,67 @@
+import { 
+  ListItem, 
+  ListItemText, 
+  IconButton, 
+  Chip,
+  Box 
+} from '@mui/material'
+import { Delete as DeleteIcon } from '@mui/icons-material'
+
 function TaskItem({ task, onToggleTask, onDeleteTask }) {
   return (
-    <li className="flex items-center justify-between p-4 mb-2 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
-      <span
-        onClick={() => onToggleTask(task.id)}
-        className={`cursor-pointer flex-1 text-sm ${
-          task.completed ? 'line-through text-gray-400' : 'text-gray-800'
-        } ${task.priority === 'high' ? 'text-red-600 font-medium' : ''}`}
-      >
-        {task.text}
-      </span>
-      <button
+    <ListItem
+      sx={{
+        mb: 1,
+        bgcolor: 'grey.50',
+        borderRadius: 2,
+        border: '1px solid',
+        borderColor: 'grey.200',
+        '&:hover': {
+          boxShadow: 2,
+          transition: 'box-shadow 0.2s'
+        }
+      }}
+    >
+      <ListItemText
+        primary={
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <span
+              onClick={() => onToggleTask(task.id)}
+              style={{
+                cursor: 'pointer',
+                flex: 1,
+                textDecoration: task.completed ? 'line-through' : 'none',
+                fontWeight: task.priority === 'high' ? 'bold' : 'normal',
+                color: task.priority === 'high' ? 'error.main' : (task.completed ? 'text.secondary' : 'text.primary')
+              }}
+            >
+              {task.text}
+            </span>
+            {task.priority === 'high' && (
+              <Chip 
+                label="높음" 
+                size="small" 
+                color="error" 
+                variant="outlined"
+              />
+            )}
+          </Box>
+        }
+        sx={{ 
+          '& .MuiListItemText-primary': {
+            fontSize: '0.875rem'
+          }
+        }}
+      />
+      <IconButton
         onClick={() => onDeleteTask(task.id)}
-        className="ml-3 px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 transition-colors"
+        color="error"
+        size="small"
+        sx={{ ml: 1 }}
       >
-        삭제
-      </button>
-    </li>
+        <DeleteIcon />
+      </IconButton>
+    </ListItem>
   )
 }
 

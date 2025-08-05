@@ -1,47 +1,66 @@
+import { 
+  Paper, 
+  Typography, 
+  FormControl, 
+  Select, 
+  MenuItem, 
+  Button, 
+  Box, 
+  Stack,
+  Alert
+} from '@mui/material'
+
 function UserFilter({ userIdFilter, onFilterChange, totalPosts, filteredCount }) {
   // 사용자 ID 옵션 생성 (1-10)
   const userOptions = Array.from({ length: 10 }, (_, i) => i + 1)
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        <div className="flex items-center gap-3">
-          <label htmlFor="userIdSelect" className="text-sm font-medium text-gray-700">
+    <Paper elevation={3} sx={{ p: 3, mb: 4, borderRadius: 3 }}>
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems={{ xs: 'flex-start', sm: 'center' }}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 'medium' }}>
             사용자 필터:
-          </label>
-          <select
-            id="userIdSelect"
-            value={userIdFilter}
-            onChange={(e) => onFilterChange(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="">전체 사용자</option>
-            {userOptions.map(userId => (
-              <option key={userId} value={userId}>
-                사용자 {userId}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button 
+          </Typography>
+          <FormControl size="small" sx={{ minWidth: 150 }}>
+            <Select
+              value={userIdFilter}
+              onChange={(e) => onFilterChange(e.target.value)}
+              displayEmpty
+            >
+              <MenuItem value="">
+                <em>전체 사용자</em>
+              </MenuItem>
+              {userOptions.map(userId => (
+                <MenuItem key={userId} value={userId}>
+                  사용자 {userId}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Stack>
+        
+        <Button
+          variant="outlined"
           onClick={() => onFilterChange('')}
-          className="px-4 py-2 bg-gray-500 text-white text-sm rounded-lg hover:bg-gray-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={!userIdFilter}
+          size="medium"
         >
           전체보기
-        </button>
-      </div>
+        </Button>
+      </Stack>
       
       {userIdFilter && (
-        <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-          <p className="text-sm text-blue-800">
-            사용자 <span className="font-semibold">{userIdFilter}</span>의 포스트: 
-            <span className="font-semibold text-blue-600"> {filteredCount}개</span> 
-            (전체 {totalPosts}개 중)
-          </p>
-        </div>
+        <Box sx={{ mt: 2 }}>
+          <Alert severity="info" sx={{ borderRadius: 2 }}>
+            <Typography variant="body2">
+              사용자 <span style={{ fontWeight: 'bold' }}>{userIdFilter}</span>의 포스트: 
+              <span style={{ fontWeight: 'bold', color: 'primary.main' }}> {filteredCount}개</span> 
+              (전체 {totalPosts}개 중)
+            </Typography>
+          </Alert>
+        </Box>
       )}
-    </div>
+    </Paper>
   )
 }
 

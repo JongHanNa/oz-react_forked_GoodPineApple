@@ -3,20 +3,31 @@ import TaskInput from '../../components/counter/TaskInput'
 import TaskList from '../../components/counter/TaskList'
 import TaskCounter from '../../components/counter/TaskCounter'
 import { useNavigate } from 'react-router'
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import { Input } from '@mui/material';
+import { 
+  Stack, 
+  Button, 
+  Container, 
+  Paper, 
+  Typography, 
+  Box,
+  Alert,
+  Snackbar
+} from '@mui/material'
+import { Article as ArticleIcon } from '@mui/icons-material'
 
 function Counter() {
   const navigate = useNavigate()
   const [tasks, setTasks] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [priority, setPriority] = useState('low')
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
 
   const addTask = () => {
     const taskText = inputValue.trim()
     if (taskText === '') {
-      alert('할일을 입력해주세요')
+      setSnackbarMessage('할일을 입력해주세요')
+      setOpenSnackbar(true)
       return
     }
 
@@ -46,51 +57,82 @@ function Counter() {
 
   const clearAllTasks = () => {
     if (tasks.length === 0) {
-      alert('삭제할 할 일이 없습니다.')
+      setSnackbarMessage('삭제할 할 일이 없습니다.')
+      setOpenSnackbar(true)
       return
     }
     setTasks([])
   }
 
   const moveToPosts = () => {
-    alert('게시판으로 이동합니다.');
-    navigate('/posts');
+    setSnackbarMessage('게시판으로 이동합니다.')
+    setOpenSnackbar(true)
+    navigate('/posts')
+  }
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false)
   }
 
   return (
-    <div className="max-w-2xl w-11/12 mx-auto my-5 bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
-      <h1 className="text-slate-700 text-center mb-6 font-semibold text-2xl">✅ 할 일 목록</h1>
-      <Stack spacing={2} direction="row" className="mb-6">
-        <Button variant="text" className="w-full">Text</Button>
-        <Button variant="contained" className="w-full bg-blue-500 text-white">Contained</Button>
-        <Button variant="outlined" className="w-full border-blue-500 text-blue-500">Outlined</Button> 
-      </Stack>
+    <Container maxWidth="md" sx={{ py: 4 }}>
+      <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
+        <Typography variant="h4" component="h1" gutterBottom sx={{ textAlign: 'center', mb: 4, fontWeight: 'bold', color: 'text.primary' }}>
+          ✅ 할 일 목록
+        </Typography>
+        
+        <Stack spacing={2} direction="row" sx={{ mb: 4 }}>
+          <Button variant="text" fullWidth>
+            Text
+          </Button>
+          <Button variant="contained" fullWidth>
+            Contained
+          </Button>
+          <Button variant="outlined" fullWidth>
+            Outlined
+          </Button>
+        </Stack>
 
-      <button 
-        onClick={moveToPosts}
-        className="w-full mb-6 px-4 py-3 bg-blue-500 text-white rounded-lg text-base font-medium hover:bg-blue-600 active:translate-y-px transition-all duration-200"
+        <Button
+          variant="contained"
+          fullWidth
+          size="large"
+          startIcon={<ArticleIcon />}
+          onClick={moveToPosts}
+          sx={{ mb: 4, py: 1.5, textTransform: 'none', fontSize: '1.1rem' }}
+        >
+          📋 게시판으로 이동
+        </Button>
+        
+        <TaskInput
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          priority={priority}
+          setPriority={setPriority}
+          onAddTask={addTask}
+          onClearAllTasks={clearAllTasks}
+        />
+        
+        <TaskCounter count={tasks.length} />
+        
+        <TaskList
+          tasks={tasks}
+          onToggleTask={toggleTask}
+          onDeleteTask={deleteTask}
+        />
+      </Paper>
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        📋 게시판으로 이동
-      </button>
-      
-      <TaskInput
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        priority={priority}
-        setPriority={setPriority}
-        onAddTask={addTask}
-        onClearAllTasks={clearAllTasks}
-      />
-      
-      <TaskCounter count={tasks.length} />
-      
-      <TaskList
-        tasks={tasks}
-        onToggleTask={toggleTask}
-        onDeleteTask={deleteTask}
-      />
-      <Input placeholder="Basic usage" />
-    </div>
+        <Alert onClose={handleCloseSnackbar} severity="info" sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+    </Container>
   )
 }
 

@@ -1,48 +1,88 @@
 import { Link } from 'react-router'
+import { 
+  AppBar, 
+  Toolbar, 
+  Button, 
+  Typography, 
+  Box, 
+  Container 
+} from '@mui/material'
+import { 
+  Home as HomeIcon,
+  Article as ArticleIcon,
+  Info as InfoIcon,
+  CheckCircle as CheckCircleIcon,
+  LocationOn as LocationIcon
+} from '@mui/icons-material'
 
 function Header() {
   return (
-    <header className="bg-gray-50 border-b border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav className="flex items-center justify-between h-16">
-          <div className="flex items-center space-x-8">
-            <Link 
-              to="/" 
-              className="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+    <AppBar position="static" color="default" elevation={1} sx={{ bgcolor: 'grey.50' }}>
+      <Container maxWidth="xl">
+        <Toolbar sx={{ px: { xs: 0 } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1 }}>
+            <Button
+              component={Link}
+              to="/"
+              startIcon={<HomeIcon />}
+              sx={{ 
+                color: 'text.primary',
+                '&:hover': { color: 'primary.main' }
+              }}
             >
-              🏠 Home
-            </Link>
-            <Link 
-              to="/posts" 
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              Home
+            </Button>
+            <Button
+              component={Link}
+              to="/posts"
+              startIcon={<ArticleIcon />}
+              sx={{ 
+                color: 'text.secondary',
+                '&:hover': { color: 'primary.main' }
+              }}
             >
-              📋 Posts
-            </Link>
-            <Link 
-              to="/info/about" 
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              Posts
+            </Button>
+            <Button
+              component={Link}
+              to="/info/about"
+              startIcon={<InfoIcon />}
+              sx={{ 
+                color: 'text.secondary',
+                '&:hover': { color: 'primary.main' }
+              }}
             >
-              ℹ️ About
-            </Link>
-            <Link 
-              to="/info/counter" 
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              About
+            </Button>
+            <Button
+              component={Link}
+              to="/info/counter"
+              startIcon={<CheckCircleIcon />}
+              sx={{ 
+                color: 'text.secondary',
+                '&:hover': { color: 'primary.main' }
+              }}
             >
-              ✅ Counter
-            </Link>
-            <Link 
-              to="/info/location" 
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              Counter
+            </Button>
+            <Button
+              component={Link}
+              to="/info/location"
+              startIcon={<LocationIcon />}
+              sx={{ 
+                color: 'text.secondary',
+                '&:hover': { color: 'primary.main' }
+              }}
             >
-              📍 Location
-            </Link>
-          </div>
-          <div className="text-sm text-gray-500">
+              Location
+            </Button>
+          </Box>
+          <Typography variant="body2" color="text.secondary">
             My React App
-          </div>
-        </nav>
-      </div>
-    </header>
+          </Typography>
+        </Toolbar>
+      </Container>
+    </AppBar>
   )
 }
 

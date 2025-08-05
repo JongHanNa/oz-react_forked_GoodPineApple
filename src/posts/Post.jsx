@@ -1,6 +1,28 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router'
-// import './Post.css'
+import { 
+  Container, 
+  Paper, 
+  Typography, 
+  Button, 
+  Box, 
+  Grid, 
+  Divider,
+  Skeleton,
+  Alert,
+  AlertTitle,
+  Stack
+} from '@mui/material'
+import { 
+  ArrowBack as ArrowBackIcon,
+  Person as PersonIcon,
+  Email as EmailIcon,
+  Phone as PhoneIcon,
+  Language as LanguageIcon,
+  Business as BusinessIcon,
+  LocationOn as LocationIcon,
+  Comment as CommentIcon
+} from '@mui/icons-material'
 
 const Post = () => {
   const { postId } = useParams()
@@ -56,158 +78,232 @@ const Post = () => {
 
   if (loading) {
     return (
-      <div className="space-y-8">
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div className="w-24 h-8 bg-gray-200 rounded animate-pulse"></div>
-            <div className="w-16 h-6 bg-gray-200 rounded animate-pulse"></div>
-          </div>
-          <div className="space-y-4">
-            <div className="h-8 bg-gray-200 rounded w-3/4 animate-pulse"></div>
-            <div className="h-4 bg-gray-200 rounded w-full animate-pulse"></div>
-            <div className="h-4 bg-gray-200 rounded w-5/6 animate-pulse"></div>
-          </div>
-        </div>
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Stack spacing={4}>
+          <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
+              <Skeleton variant="rectangular" width={96} height={32} />
+              <Skeleton variant="rectangular" width={64} height={24} />
+            </Box>
+            <Stack spacing={2}>
+              <Skeleton variant="text" width="75%" height={32} />
+              <Skeleton variant="text" width="100%" height={20} />
+              <Skeleton variant="text" width="83%" height={20} />
+            </Stack>
+          </Paper>
 
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <div className="h-6 bg-gray-200 rounded w-32 mb-4 animate-pulse"></div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="space-y-3">
-              <div className="h-5 bg-gray-200 rounded w-24 animate-pulse"></div>
-              <div className="h-4 bg-gray-200 rounded w-32 animate-pulse"></div>
-              <div className="h-4 bg-gray-200 rounded w-40 animate-pulse"></div>
-            </div>
-            <div className="space-y-3">
-              <div className="h-5 bg-gray-200 rounded w-16 animate-pulse"></div>
-              <div className="h-4 bg-gray-200 rounded w-48 animate-pulse"></div>
-              <div className="h-4 bg-gray-200 rounded w-36 animate-pulse"></div>
-            </div>
-            <div className="space-y-3">
-              <div className="h-5 bg-gray-200 rounded w-20 animate-pulse"></div>
-              <div className="h-4 bg-gray-200 rounded w-32 animate-pulse"></div>
-              <div className="h-4 bg-gray-200 rounded w-40 animate-pulse"></div>
-            </div>
-          </div>
-        </div>
+          <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
+            <Skeleton variant="text" width={128} height={24} sx={{ mb: 3 }} />
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={4}>
+                <Stack spacing={1.5}>
+                  <Skeleton variant="text" width={96} height={20} />
+                  <Skeleton variant="text" width={128} height={16} />
+                  <Skeleton variant="text" width={160} height={16} />
+                </Stack>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Stack spacing={1.5}>
+                  <Skeleton variant="text" width={64} height={20} />
+                  <Skeleton variant="text" width={192} height={16} />
+                  <Skeleton variant="text" width={144} height={16} />
+                </Stack>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Stack spacing={1.5}>
+                  <Skeleton variant="text" width={80} height={20} />
+                  <Skeleton variant="text" width={128} height={16} />
+                  <Skeleton variant="text" width={160} height={16} />
+                </Stack>
+              </Grid>
+            </Grid>
+          </Paper>
 
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <div className="h-6 bg-gray-200 rounded w-24 mb-4 animate-pulse"></div>
-          <div className="space-y-4">
-            {[1, 2, 3, 4, 5].map(index => (
-              <div key={index} className="border-b border-gray-200 pb-4 last:border-b-0">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="h-4 bg-gray-200 rounded w-24 animate-pulse"></div>
-                  <div className="h-4 bg-gray-200 rounded w-32 animate-pulse"></div>
-                </div>
-                <div className="h-4 bg-gray-200 rounded w-full animate-pulse"></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+          <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
+            <Skeleton variant="text" width={96} height={24} sx={{ mb: 3 }} />
+            <Stack spacing={2}>
+              {[1, 2, 3, 4, 5].map(index => (
+                <Box key={index} sx={{ pb: 2, borderBottom: '1px solid', borderColor: 'divider' }}>
+                  <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
+                    <Skeleton variant="text" width={96} height={16} />
+                    <Skeleton variant="text" width={128} height={16} />
+                  </Box>
+                  <Skeleton variant="text" width="100%" height={16} />
+                </Box>
+              ))}
+            </Stack>
+          </Paper>
+        </Stack>
+      </Container>
     )
   }
 
   if (error) {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-8 text-center">
-        <div className="text-6xl mb-4">😕</div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">오류가 발생했습니다</h2>
-        <p className="text-gray-600 mb-6">{error}</p>
-        <Link 
-          to="/posts" 
-          className="inline-block px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-        >
-          ← 포스트 목록으로 돌아가기
-        </Link>
-      </div>
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        <Paper elevation={3} sx={{ p: 6, textAlign: 'center', borderRadius: 3 }}>
+          <Typography variant="h1" sx={{ mb: 2 }}>😕</Typography>
+          <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: 'bold' }}>
+            오류가 발생했습니다
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+            {error}
+          </Typography>
+          <Button
+            component={Link}
+            to="/posts"
+            variant="contained"
+            startIcon={<ArrowBackIcon />}
+            size="large"
+          >
+            포스트 목록으로 돌아가기
+          </Button>
+        </Paper>
+      </Container>
     )
   }
 
   if (!post) {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-8 text-center">
-        <div className="text-6xl mb-4">🔍</div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">포스트를 찾을 수 없습니다</h2>
-        <Link 
-          to="/posts" 
-          className="inline-block px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-        >
-          ← 포스트 목록으로 돌아가기
-        </Link>
-      </div>
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        <Paper elevation={3} sx={{ p: 6, textAlign: 'center', borderRadius: 3 }}>
+          <Typography variant="h1" sx={{ mb: 2 }}>🔍</Typography>
+          <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: 'bold' }}>
+            포스트를 찾을 수 없습니다
+          </Typography>
+          <Button
+            component={Link}
+            to="/posts"
+            variant="contained"
+            startIcon={<ArrowBackIcon />}
+            size="large"
+            sx={{ mt: 2 }}
+          >
+            포스트 목록으로 돌아가기
+          </Button>
+        </Paper>
+      </Container>
     )
   }
 
   return (
-    <div className="space-y-8">
-      <div className="bg-white rounded-xl shadow-lg p-6">
-        <div className="flex items-center justify-between mb-6">
-          <Link 
-            to="/posts" 
-            className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2"
-          >
-            ← 포스트 목록
-          </Link>
-          <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded">
-            Post #{post.id}
-          </span>
-        </div>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Stack spacing={4}>
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+            <Button
+              component={Link}
+              to="/posts"
+              startIcon={<ArrowBackIcon />}
+              sx={{ color: 'primary.main' }}
+            >
+              포스트 목록
+            </Button>
+            <Typography variant="body2" sx={{ fontWeight: 'bold', color: 'primary.main', bgcolor: 'primary.50', px: 2, py: 0.5, borderRadius: 1 }}>
+              Post #{post.id}
+            </Typography>
+          </Box>
 
-        <article>
-          <h1 className="text-3xl font-bold text-gray-900 mb-6">{post.title}</h1>
-          <p className="text-gray-700 leading-relaxed text-lg">{post.body}</p>
-        </article>
-      </div>
+          <article>
+            <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
+              {post.title}
+            </Typography>
+            <Typography variant="body1" sx={{ lineHeight: 1.8, fontSize: '1.1rem' }}>
+              {post.body}
+            </Typography>
+          </article>
+        </Paper>
 
-      {/* 작성자 정보 */}
-      {user && (
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <h3 className="text-xl font-semibold text-gray-900 mb-6">👤 작성자 정보</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="space-y-3">
-              <h4 className="text-lg font-semibold text-gray-900">{user.name}</h4>
-              <p className="text-gray-600">@{user.username}</p>
-              <p className="text-gray-600">📧 {user.email}</p>
-              <p className="text-gray-600">📞 {user.phone}</p>
-              <p className="text-gray-600">🌐 {user.website}</p>
-            </div>
-            <div className="space-y-3">
-              <h5 className="font-semibold text-gray-900">📍 주소</h5>
-              <p className="text-gray-600">{user.address.street}, {user.address.suite}</p>
-              <p className="text-gray-600">{user.address.city}, {user.address.zipcode}</p>
-            </div>
-            <div className="space-y-3">
-              <h5 className="font-semibold text-gray-900">🏢 회사</h5>
-              <p className="font-medium text-gray-900">{user.company.name}</p>
-              <p className="text-gray-600">{user.company.catchPhrase}</p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 댓글 목록 */}
-      <div className="bg-white rounded-xl shadow-lg p-6">
-        <h3 className="text-xl font-semibold text-gray-900 mb-6">
-          💬 댓글 ({comments.length}개)
-        </h3>
-        {comments.length === 0 ? (
-          <p className="text-gray-500 text-center py-8">아직 댓글이 없습니다.</p>
-        ) : (
-          <div className="space-y-6">
-            {comments.map(comment => (
-              <div key={comment.id} className="border-b border-gray-200 pb-6 last:border-b-0">
-                <div className="flex items-center gap-2 mb-3">
-                  <strong className="text-gray-900">{comment.name}</strong>
-                  <span className="text-sm text-gray-500">({comment.email})</span>
-                </div>
-                <p className="text-gray-700 leading-relaxed">{comment.body}</p>
-              </div>
-            ))}
-          </div>
+        {/* 작성자 정보 */}
+        {user && (
+          <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
+            <Typography variant="h5" component="h3" gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
+              👤 작성자 정보
+            </Typography>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={4}>
+                <Stack spacing={2}>
+                  <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                    {user.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    @{user.username}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <EmailIcon fontSize="small" />
+                    {user.email}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <PhoneIcon fontSize="small" />
+                    {user.phone}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <LanguageIcon fontSize="small" />
+                    {user.website}
+                  </Typography>
+                </Stack>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Stack spacing={2}>
+                  <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                    📍 주소
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {user.address.street}, {user.address.suite}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {user.address.city}, {user.address.zipcode}
+                  </Typography>
+                </Stack>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Stack spacing={2}>
+                  <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                    🏢 회사
+                  </Typography>
+                  <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+                    {user.company.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {user.company.catchPhrase}
+                  </Typography>
+                </Stack>
+              </Grid>
+            </Grid>
+          </Paper>
         )}
-      </div>
-    </div>
+
+        {/* 댓글 목록 */}
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
+          <Typography variant="h5" component="h3" gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
+            💬 댓글 ({comments.length}개)
+          </Typography>
+          {comments.length === 0 ? (
+            <Typography variant="body1" color="text.secondary" sx={{ textAlign: 'center', py: 4 }}>
+              아직 댓글이 없습니다.
+            </Typography>
+          ) : (
+            <Stack spacing={3}>
+              {comments.map(comment => (
+                <Box key={comment.id} sx={{ pb: 3, borderBottom: '1px solid', borderColor: 'divider' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                    <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                      {comment.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      ({comment.email})
+                    </Typography>
+                  </Box>
+                  <Typography variant="body1" sx={{ lineHeight: 1.6 }}>
+                    {comment.body}
+                  </Typography>
+                </Box>
+              ))}
+            </Stack>
+          )}
+        </Paper>
+      </Stack>
+    </Container>
   )
 }
 

@@ -1,15 +1,27 @@
+import { Box, Container, Typography } from '@mui/material'
+
 function Footer() {
   return (
-    <footer className="bg-gray-50 border-t border-gray-200 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="text-center text-sm text-gray-600">
-          <p>&copy; 2024 My React App. All rights reserved.</p>
-          <p className="mt-1 text-xs text-gray-500">
-            Built with React, Vite & Tailwind CSS
-          </p>
-        </div>
-      </div>
-    </footer>
+    <Box 
+      component="footer" 
+      sx={{ 
+        bgcolor: 'grey.50', 
+        borderTop: '1px solid', 
+        borderColor: 'grey.200',
+        mt: 'auto'
+      }}
+    >
+      <Container maxWidth="xl" sx={{ py: 2 }}>
+        <Box sx={{ textAlign: 'center' }}>
+          <Typography variant="body2" color="text.secondary">
+            &copy; 2024 My React App. All rights reserved.
+          </Typography>
+          <Typography variant="caption" color="text.disabled" sx={{ display: 'block', mt: 0.5 }}>
+            Built with React, Vite & Material UI
+          </Typography>
+        </Box>
+      </Container>
+    </Box>
   )
 }
 

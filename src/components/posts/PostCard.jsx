@@ -1,4 +1,11 @@
 import { Link } from 'react-router'
+import { 
+  Card, 
+  CardContent, 
+  Typography, 
+  Box, 
+  Chip 
+} from '@mui/material'
 
 function PostCard({ post, searchTerm, highlightEnabled }) {
   // 텍스트에서 검색어를 하이라이팅하는 함수
@@ -12,36 +19,72 @@ function PostCard({ post, searchTerm, highlightEnabled }) {
     
     return parts.map((part, index) => {
       if (part.toLowerCase() === term.toLowerCase()) {
-        return `<mark class="bg-yellow-200 px-1 rounded">${part}</mark>`
+        return `<mark style="background-color: #fef3c7; padding: 0 2px; border-radius: 2px;">${part}</mark>`
       }
       return part
     }).join('')
   }
 
   return (
-    <Link to={`/posts/${post.id}`} className="block">
-      <article className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 h-full border border-gray-100">
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded">
-            #{post.id}
-          </span>
-          <span className="text-sm text-gray-500">
-            작성자 {post.userId}
-          </span>
-        </div>
-        <h2 
-          className="text-lg font-semibold text-gray-900 mb-3 line-clamp-2"
-          dangerouslySetInnerHTML={{ 
-            __html: highlightText(post.title, searchTerm) 
-          }}
-        />
-        <p 
-          className="text-gray-600 text-sm leading-relaxed line-clamp-3"
-          dangerouslySetInnerHTML={{ 
-            __html: highlightText(post.body, searchTerm) 
-          }}
-        />
-      </article>
+    <Link to={`/posts/${post.id}`} style={{ textDecoration: 'none' }}>
+      <Card 
+        elevation={2} 
+        sx={{ 
+          height: '100%',
+          transition: 'box-shadow 0.2s',
+          '&:hover': {
+            boxShadow: 4
+          }
+        }}
+      >
+        <CardContent>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+            <Chip 
+              label={`#${post.id}`} 
+              size="small" 
+              color="primary" 
+              variant="outlined"
+            />
+            <Typography variant="body2" color="text.secondary">
+              작성자 {post.userId}
+            </Typography>
+          </Box>
+          
+          <Typography 
+            variant="h6" 
+            component="h2" 
+            gutterBottom 
+            sx={{ 
+              fontWeight: 'semibold',
+              lineHeight: 1.4,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical'
+            }}
+            dangerouslySetInnerHTML={{ 
+              __html: highlightText(post.title, searchTerm) 
+            }}
+          />
+          
+          <Typography 
+            variant="body2" 
+            color="text.secondary"
+            sx={{ 
+              lineHeight: 1.6,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: 'vertical'
+            }}
+            dangerouslySetInnerHTML={{ 
+              __html: highlightText(post.body, searchTerm) 
+            }}
+          />
+        </CardContent>
+      </Card>
     </Link>
   )
 }

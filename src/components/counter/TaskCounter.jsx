@@ -1,8 +1,12 @@
+import { Typography, Box } from '@mui/material'
+
 function TaskCounter({ count }) {
   return (
-    <div className="my-4 text-slate-500 text-sm text-center">
-      현재 할 일: <span>{count}</span>개
-    </div>
+    <Box sx={{ my: 3, textAlign: 'center' }}>
+      <Typography variant="body2" color="text.secondary">
+        현재 할 일: <span style={{ fontWeight: 'bold' }}>{count}</span>개
+      </Typography>
+    </Box>
   )
 }
 

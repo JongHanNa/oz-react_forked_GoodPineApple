@@ -1,3 +1,4 @@
+import { Grid } from '@mui/material'
 import PostCard from './PostCard'
 import SkeletonCard from './SkeletonCard'
 import ErrorMessage from './ErrorMessage'
@@ -5,11 +6,13 @@ import ErrorMessage from './ErrorMessage'
 function PostList({ posts, loading, error, searchTerm, highlightEnabled }) {
   if (loading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <Grid container spacing={3}>
         {Array.from({ length: 6 }, (_, index) => (
-          <SkeletonCard key={index} />
+          <Grid item xs={12} md={6} lg={4} key={index}>
+            <SkeletonCard />
+          </Grid>
         ))}
-      </div>
+      </Grid>
     )
   }
 
@@ -18,16 +21,17 @@ function PostList({ posts, loading, error, searchTerm, highlightEnabled }) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <Grid container spacing={3}>
       {posts.map(post => (
-        <PostCard 
-          key={post.id} 
-          post={post} 
-          searchTerm={searchTerm}
-          highlightEnabled={highlightEnabled}
-        />
+        <Grid item xs={12} md={6} lg={4} key={post.id}>
+          <PostCard 
+            post={post} 
+            searchTerm={searchTerm}
+            highlightEnabled={highlightEnabled}
+          />
+        </Grid>
       ))}
-    </div>
+    </Grid>
   )
 }
 

@@ -1,58 +1,72 @@
+import { 
+  Paper, 
+  Typography, 
+  TextField, 
+  FormControlLabel, 
+  Checkbox, 
+  Box, 
+  Stack,
+  Alert,
+  IconButton
+} from '@mui/material'
+import { Search as SearchIcon, Clear as ClearIcon } from '@mui/icons-material'
+
 function SearchFilter({ searchTerm, onSearchChange, searchResults, highlightEnabled, onHighlightToggle }) {
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        <div className="flex-1">
-          <label htmlFor="searchInput" className="block text-sm font-medium text-gray-700 mb-2">
+    <Paper elevation={3} sx={{ p: 3, mb: 4, borderRadius: 3 }}>
+      <Stack spacing={2}>
+        <Box>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 1, fontWeight: 'medium' }}>
             제목 또는 내용 검색:
-          </label>
-          <div className="relative">
-            <input
-              id="searchInput"
-              type="text"
-              value={searchTerm}
-              onChange={(e) => onSearchChange(e.target.value)}
-              placeholder="검색어를 입력하세요..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pr-10"
-            />
-            {searchTerm && (
-              <button 
-                onClick={() => onSearchChange('')}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                aria-label="검색어 지우기"
-              >
-                ✕
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
+          </Typography>
+          <TextField
+            fullWidth
+            value={searchTerm}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="검색어를 입력하세요..."
+            size="medium"
+            InputProps={{
+              startAdornment: <SearchIcon sx={{ color: 'text.secondary', mr: 1 }} />,
+              endAdornment: searchTerm && (
+                <IconButton
+                  onClick={() => onSearchChange('')}
+                  size="small"
+                  sx={{ color: 'text.secondary' }}
+                >
+                  <ClearIcon />
+                </IconButton>
+              )
+            }}
+          />
+        </Box>
+      </Stack>
       
       {searchTerm && (
-        <div className="mt-4 space-y-3">
-          <div className="p-3 bg-green-50 rounded-lg">
-            <p className="text-sm text-green-800">
-              <span className="font-semibold">"{searchTerm}"</span> 검색 결과: 
-              <span className="font-semibold text-green-600"> {searchResults}개</span>
-            </p>
-          </div>
+        <Stack spacing={2} sx={{ mt: 2 }}>
+          <Alert severity="success" sx={{ borderRadius: 2 }}>
+            <Typography variant="body2">
+              <span style={{ fontWeight: 'bold' }}>"{searchTerm}"</span> 검색 결과: 
+              <span style={{ fontWeight: 'bold', color: 'success.main' }}> {searchResults}개</span>
+            </Typography>
+          </Alert>
           
-          <div className="flex items-center">
-            <label className="flex items-center cursor-pointer">
-              <input
-                type="checkbox"
+          <FormControlLabel
+            control={
+              <Checkbox
                 checked={highlightEnabled}
                 onChange={(e) => onHighlightToggle(e.target.checked)}
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                size="small"
               />
-              <span className="ml-2 text-sm text-gray-700">
+            }
+            label={
+              <Typography variant="body2" color="text.secondary">
                 🔍 검색어 하이라이팅
-              </span>
-            </label>
-          </div>
-        </div>
+              </Typography>
+            }
+          />
+        </Stack>
       )}
-    </div>
+    </Paper>
   )
 }
 

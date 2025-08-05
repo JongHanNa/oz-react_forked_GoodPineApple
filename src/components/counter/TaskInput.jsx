@@ -1,4 +1,14 @@
 import { useRef } from 'react'
+import { 
+  Box, 
+  TextField, 
+  Select, 
+  MenuItem, 
+  FormControl, 
+  InputLabel, 
+  Button, 
+  Stack 
+} from '@mui/material'
 
 function TaskInput({ 
   inputValue, 
@@ -25,40 +35,54 @@ function TaskInput({
   }
 
   return (
-    <div className="space-y-3 mb-6">
-      <div className="flex flex-col sm:flex-row gap-3">
-        <select 
-          value={priority}
-          onChange={(e) => setPriority(e.target.value)}
-          className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        >
-          <option value="low">낮음</option>
-          <option value="high">높음</option>
-        </select>
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="할 일을 입력하세요"
-          onKeyUp={handleKeyPress}
-          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-      <div className="flex flex-col sm:flex-row gap-2">
-        <button 
-          onClick={onAddTask}
-          className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors"
-        >
-          추가
-        </button>
-        <button 
-          onClick={onClearAllTasks}
-          className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg text-sm font-medium hover:bg-red-600 transition-colors"
-        >
-          전체 삭제
-        </button>
-      </div>
-    </div>
+    <Box sx={{ mb: 4 }}>
+      <Stack spacing={2}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+          <FormControl fullWidth>
+            <InputLabel>우선순위</InputLabel>
+            <Select
+              value={priority}
+              label="우선순위"
+              onChange={(e) => setPriority(e.target.value)}
+              size="medium"
+            >
+              <MenuItem value="low">낮음</MenuItem>
+              <MenuItem value="high">높음</MenuItem>
+            </Select>
+          </FormControl>
+          
+          <TextField
+            fullWidth
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="할 일을 입력하세요"
+            onKeyUp={handleKeyPress}
+            size="medium"
+          />
+        </Stack>
+        
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+          <Button
+            variant="contained"
+            onClick={onAddTask}
+            fullWidth
+            size="large"
+          >
+            추가
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={onClearAllTasks}
+            fullWidth
+            size="large"
+          >
+            전체 삭제
+          </Button>
+        </Stack>
+      </Stack>
+    </Box>
   )
 }
 
